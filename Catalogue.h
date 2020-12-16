@@ -100,6 +100,27 @@ public:
     //
 
     ListeChainee* GetList();
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+    void EcrireCatalogue(ofstream & file, int option) const;
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+    void EcrireCatalogueVille(ofstream & file, int option, string ville) const;
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+    void EcrireCatalogueVilles(ofstream & file, string villeDep,string villeArr) const;
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+
+
 	
 
 

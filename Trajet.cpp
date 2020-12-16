@@ -150,6 +150,14 @@ char* Trajet:: GetVilleA () const {
     return villeA;
 } //----- Fin de GetVilleA
 
+void Trajet::EcrireTrajet(ofstream & file) const{
+
+}
+
+bool Trajet::IsTrajetComposee() const{
+    return false;
+}
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

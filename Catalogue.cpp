@@ -194,6 +194,26 @@ ListeChainee* Catalogue::GetList(){
 }
 //----- Fin de GetList
 
+void Catalogue::EcrireCatalogue(ofstream & file,int option) const{
+// Algorithme :
+//
+	listTrajet->EcrireListeCatalogue(file,option);
+} //----- Fin de EcrireCatalogue
+
+void Catalogue::EcrireCatalogueVille(ofstream & file, int option, string ville) const
+// Algorithme :
+//
+{
+	listTrajet->EcrireListeCatalogueVille(file,option,ville);
+} //----- Fin de EcrireCatalogueVille
+
+void Catalogue::EcrireCatalogueVilles(ofstream & file, string villeDep,string villeArr) const
+// Algorithme :
+//
+{
+	listTrajet->EcrireListeCatalogueVilles(file,villeDep,villeArr);
+} //----- Fin de EcrireCatalogueVilles
+
 
 //------------------------------------------------------------------ PRIVE
 

@@ -17,4 +17,4 @@ TrajetComposee.o : TrajetComposee.cpp
 Catalogue.o: Catalogue.cpp
 	g++ -c $(CFLAGS) Catalogue.cpp
 clean:
-	rm exe *.o
+	rm exe *.o *.txt

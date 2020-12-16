@@ -11,7 +11,7 @@
 #define Trajet_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include <fstream>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -108,6 +108,13 @@ public:
     // 
     // Contrat :
     //
+    virtual void EcrireTrajet(ofstream & file) const;
+    // Mode d'emploi : Ecriture d'un trajet dans un fichier
+    // 
+    // Contrat :
+    //
+
+    virtual bool IsTrajetComposee() const;
 
 
 

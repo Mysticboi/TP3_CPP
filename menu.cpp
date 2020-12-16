@@ -24,6 +24,7 @@ int main(int argc, char const *argv[])
         cout<<"\t 2: Afficher le contenu du catalogue"<<endl;
         cout<<"\t 3: Recherche Simple dans le catalogue"<<endl;
         cout<<"\t 4: Recherche Avancée dans le catalogue"<<endl;
+        cout<<"\t 5: Ecriture dans un fichier"<<endl;
         cin >>option;
         if(option==0){
             cout<<"Au revoir!"<<endl;
@@ -167,6 +168,50 @@ int main(int argc, char const *argv[])
 			cout<<normal;
             delete [] villeD;
             delete [] villeA;
+        }
+
+        else if(option==5){
+            cout<<"Veuillez saisir le nom du fichier sous forme (nom.txt): ";
+            string nomF;
+            cin>>nomF;
+            ofstream file;
+            file.open(nomF);
+            cout<<"Veuillez choisir l'option de l'écriture"<<endl;
+            cout<<"\t 1: Ecriture de tous les trajets sans sélection"<<endl;
+            cout<<"\t 2: Ecriture des trajets simples uniquement"<<endl;
+            cout<<"\t 3: Ecriture des trajets composés uniquement"<<endl;
+            cout<<"\t 4: Ecriture des trajets selon une ville de départ"<<endl;
+            cout<<"\t 5: Ecriture des trajets selon une ville d'arrivée"<<endl;
+            cout<<"\t 6: Ecriture des trajets selon une ville de départ et une ville d'arrivée"<<endl;
+            int optionC;
+            cin>>optionC;
+            if(optionC>0 and optionC<4){
+                monCatalogue.EcrireCatalogue(file,optionC);
+            }
+            else if(optionC==4){
+                string villeDep;
+                cout<<"Veuillez rentrer la ville de départ: ";
+                cin>>villeDep;
+                monCatalogue.EcrireCatalogueVille(file,4,villeDep);
+            }
+            else if(optionC==5){
+                string villeArr;
+                cout<<"Veuillez rentrer la ville d'arrivée: ";
+                cin>>villeArr;
+                monCatalogue.EcrireCatalogueVille(file,5,villeArr);
+
+            }
+            else if(optionC==6){
+                string villeDep;
+                string villeArr;
+                cout<<"Veuillez rentrer la ville départ: ";
+                cin>>villeDep;
+                cout<<"Veuillez rentrer la ville d'arrivée: ";
+                cin>>villeArr;
+                monCatalogue.EcrireCatalogueVilles(file,villeDep,villeArr);
+            }
+
+            file.close();
         }
 
         else{

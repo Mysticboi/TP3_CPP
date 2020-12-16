@@ -92,6 +92,17 @@ void TrajetSimple::AfficherTrajet ()const
 
 } //----- Fin de AfficherTrajet
 
+void TrajetSimple::EcrireTrajet(ofstream & file) const
+// Algorithme :
+//
+{
+    file<<"/"<<villeD<<","<<villeA<<","<<moyenDeTransport;
+} //----- Fin de EcrireTrajet
+
+bool TrajetSimple::IsTrajetComposee() const
+{
+    return false;
+}
 
 
 //------------------------------------------------------------------ PRIVE

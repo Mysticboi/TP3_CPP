@@ -74,6 +74,17 @@ public:
     // Contrat :
     //
 
+    void EcrireTrajet(ofstream & file) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    bool IsTrajetComposee() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 //------------------------------------------------------------------ PRIVE
 
 protected:

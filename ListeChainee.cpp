@@ -366,6 +366,192 @@ int ListeChainee::GetTaille()
 	return taille;
 }//---- Fin de GetTaille
 
+void ListeChainee::EcrireListeCatalogue(ofstream & file,int option) const
+// Algorithme :
+//
+{
+    if(option==1){ // Cas Affichage de tous les trajets sans sélection
+        if(getTete()==nullptr)
+            return;
+        Chainon * elem=getTete();
+        if(!elem->HasNext()){
+            elem->GetTrajet()->EcrireTrajet(file);
+            file<<endl;
+            return;
+        }
+        else{
+            elem->GetTrajet()->EcrireTrajet(file);
+            file<<endl;
+            while(elem->HasNext()){
+                elem=elem->GetNext();
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+        }
+    }
+    else if(option==2){ // Cas Affichage que des trajets Simples
+        if(getTete()==nullptr)
+            return;
+        Chainon * elem=getTete();
+        if(!elem->HasNext()){
+            if(!elem->GetTrajet()->IsTrajetComposee()){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            return;
+        }
+        else{
+            elem->GetTrajet()->EcrireTrajet(file);
+            file<<endl;
+            while(elem->HasNext()){
+                elem=elem->GetNext();
+                if(!elem->GetTrajet()->IsTrajetComposee()){
+                    elem->GetTrajet()->EcrireTrajet(file);
+                    file<<endl;
+                }
+            } 
+        }
+    }
+    else if(option==3){ // Cas Affichage que des trajets Composées
+        if(getTete()==nullptr)
+            return;
+        Chainon * elem=getTete();
+        if(!elem->HasNext()){
+            if(elem->GetTrajet()->IsTrajetComposee()){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            return;
+        }
+        else{
+            if(elem->GetTrajet()->IsTrajetComposee()){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            while(elem->HasNext()){
+                elem=elem->GetNext();
+                if(elem->GetTrajet()->IsTrajetComposee()){
+                    elem->GetTrajet()->EcrireTrajet(file);
+                    file<<endl;
+                }
+            } 
+        }
+    }
+
+}//---- Fin de EcrireListeCatalogue
+
+void ListeChainee::EcrireListeTC(ofstream & file) const
+// Algorithme :
+//
+{
+    if(getTete()==nullptr)
+        return;
+    Chainon * elem=getTete();
+    if(!elem->HasNext()){
+        elem->GetTrajet()->EcrireTrajet(file);
+        return;
+    }
+    else{
+        elem->GetTrajet()->EcrireTrajet(file);
+        while(elem->HasNext()){
+            elem=elem->GetNext();
+            elem->GetTrajet()->EcrireTrajet(file);
+        }
+    }
+
+}//---- Fin de EcrireListeCatalogue
+
+void ListeChainee::EcrireListeCatalogueVille(ofstream & file, int option, string ville) const
+// Algorithme :
+//
+{
+    if(option==4){ // Cas Ville départ
+        if(getTete()==nullptr)
+            return;
+        Chainon * elem=getTete();
+        if(!elem->HasNext()){
+            if(elem->GetTrajet()->CmpVilleD(ville.c_str())){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            return;
+        }
+        else{
+            if(elem->GetTrajet()->CmpVilleD(ville.c_str())){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            while(elem->HasNext()){
+                elem=elem->GetNext();
+                if(elem->GetTrajet()->CmpVilleD(ville.c_str())){
+                    elem->GetTrajet()->EcrireTrajet(file);
+                    file<<endl;
+                }
+            } 
+        }
+    }
+
+    else if(option==5){ // Cas Ville arrivée
+        if(getTete()==nullptr)
+            return;
+        Chainon * elem=getTete();
+        if(!elem->HasNext()){
+            if(elem->GetTrajet()->CmpVilleA(ville.c_str())){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            return;
+        }
+        else{
+            if(elem->GetTrajet()->CmpVilleA(ville.c_str())){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+            while(elem->HasNext()){
+                elem=elem->GetNext();
+                if(elem->GetTrajet()->CmpVilleA(ville.c_str())){
+                    elem->GetTrajet()->EcrireTrajet(file);
+                    file<<endl;
+                }
+            } 
+        }
+
+    }
+}//----- Fin de EcrireListeCatalogueVille
+
+void ListeChainee::EcrireListeCatalogueVilles(ofstream & file, string villeDep,string villeArr) const
+// Algorithme:
+//
+{
+    if(getTete()==nullptr)
+        return;
+    Chainon * elem=getTete();
+    if(!elem->HasNext()){
+        if(elem->GetTrajet()->CompareTrajetVilles(villeDep.c_str(),villeArr.c_str())){
+            elem->GetTrajet()->EcrireTrajet(file);
+            file<<endl;
+        }
+        return;
+    }
+    else{
+        if(elem->GetTrajet()->CompareTrajetVilles(villeDep.c_str(),villeArr.c_str())){
+            elem->GetTrajet()->EcrireTrajet(file);
+            file<<endl;
+        }
+        while(elem->HasNext()){
+            elem=elem->GetNext();
+            if(elem->GetTrajet()->CompareTrajetVilles(villeDep.c_str(),villeArr.c_str())){
+                elem->GetTrajet()->EcrireTrajet(file);
+                file<<endl;
+            }
+        } 
+    }
+
+}//----- Fin de EcrireListeCatalogueVilles
+
+
+
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

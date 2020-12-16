@@ -30,8 +30,22 @@ using namespace std;
 //} //----- Fin de Méthode
 
 void TrajetComposee::AfficherTrajet()const
+// Algorithme :
+//
 {
 	listeTrajet->AfficherTrajetComposee();		
+} //----- Fin de AfficherTrajet
+
+void TrajetComposee::EcrireTrajet(ofstream & file) const
+// Algorithme :
+//
+{
+    file<<"$"<<listeTrajet->GetTaille()<<","<<villeD<<","<<villeA;
+    listeTrajet->EcrireListeTC(file);
+} //----- Fin de EcrireTrajet
+
+bool TrajetComposee::IsTrajetComposee() const{
+    return true;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

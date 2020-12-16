@@ -70,6 +70,14 @@ public:
     // Contrat :
     //
 
+    void EcrireTrajet(ofstream & file) const;
+    // Mode d'emploi :
+    // Ecriture d'un trajet composée dans un fichier
+    // Contrat :
+    //
+
+    bool IsTrajetComposee() const;
+
 //------------------------------------------------------------------ PRIVE
 
 protected:

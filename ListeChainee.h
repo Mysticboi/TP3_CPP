@@ -12,6 +12,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include"Chainon.h"
+#include <fstream>
+#include <string>
 
 //------------------------------------------------------------- Constantes
 
@@ -125,6 +127,30 @@ public:
     // Contrat :
     //
     int GetTaille();
+
+    void EcrireListeCatalogue(ofstream & file, int option) const;
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue
+    //
+    // Contrat :
+    //
+
+    void EcrireListeTC(ofstream & file) const;
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour un trajet composé
+    //
+    // Contrat :
+    //
+
+    void EcrireListeCatalogueVille(ofstream & file, int option, string ville) const;
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas Ville dep ou arrivée
+    //
+    // Contrat :
+    //
+
+    void EcrireListeCatalogueVilles(ofstream & file, string villeDep,string villeArr) const;
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas villeDep et villeArr
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------------------------ PRIVE
 
