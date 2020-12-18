@@ -17,6 +17,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
+#include "TrajetSimple.h"
+#include "TrajetComposee.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -194,9 +196,10 @@ ListeChainee* Catalogue::GetList(){
 }
 //----- Fin de GetList
 
-void Catalogue::EcrireCatalogue(ofstream & file,int option) const{
+void Catalogue::EcrireCatalogue(ofstream & file,int option) const
 // Algorithme :
 //
+{
 	listTrajet->EcrireListeCatalogue(file,option);
 } //----- Fin de EcrireCatalogue
 
@@ -213,6 +216,441 @@ void Catalogue::EcrireCatalogueVilles(ofstream & file, string villeDep,string vi
 {
 	listTrajet->EcrireListeCatalogueVilles(file,villeDep,villeArr);
 } //----- Fin de EcrireCatalogueVilles
+
+void Catalogue::LireCatalogue(ifstream & file, int option)
+// Algorithme :
+//
+{
+	if(option==1)//cas de lecture de tous les trajets du fichier
+	{
+			while(true)
+			{
+					char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+					file.get(typeTrajet);
+					if(file.eof())
+							break;
+
+					string villeDepstr;
+					string villeDArrstr;
+					string mdstr;
+
+
+
+					if(typeTrajet=='/')
+					{
+
+							getline(file,villeDepstr,',');
+							const char * villeDep =villeDepstr.c_str();
+
+							getline(file,villeDArrstr,',');
+							const char * villeDArr = villeDArrstr.c_str();
+
+							getline(file,mdstr,'\n');
+							const char * md = mdstr.c_str();
+
+							listTrajet->InsertDansCatalogue(new TrajetSimple(villeDep,villeDArr,md));
+					}
+
+
+					else if(typeTrajet =='$')//cas ou on a un trajet composé
+					{
+							ListeChainee * listeTC =new ListeChainee();
+							char nb;
+							file.get(nb);
+							nb=nb-48;//on convertit le code hex du char qui code le nombre de trajetsimple en nombre
+							getline(file,villeDArrstr,'/');//on avance le stream au début du premier trajetsimple
+							for(int i=0;i<nb-1;i++)
+							{
+									getline(file,villeDepstr,',');
+									const char * villeDep =villeDepstr.c_str();
+
+									getline(file,villeDArrstr,',');
+									const char * villeDArr = villeDArrstr.c_str();
+
+									getline(file,mdstr,'/');
+									const char * md = mdstr.c_str();
+
+									listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+							}
+							getline(file,villeDepstr,',');
+							const char * villeDep =villeDepstr.c_str();
+
+							getline(file,villeDArrstr,',');
+							const char * villeDArr = villeDArrstr.c_str();
+
+							getline(file,mdstr,'\n');
+							const char * md = mdstr.c_str();
+
+							listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+							listTrajet->InsertDansCatalogue(new TrajetComposee(listeTC));
+					}
+			}
+	}
+	if(option==2)//lecture des trajets simples uniquements
+	{
+			while(true)
+			{
+					char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+					file.get(typeTrajet);
+					if(file.eof())
+							break;
+
+					string villeDepstr;
+					string villeDArrstr;
+					string mdstr;
+
+
+
+					if(typeTrajet=='/')
+					{
+
+							getline(file,villeDepstr,',');
+							const char * villeDep =villeDepstr.c_str();
+
+							getline(file,villeDArrstr,',');
+							const char * villeDArr = villeDArrstr.c_str();
+
+							getline(file,mdstr,'\n');
+							const char * md = mdstr.c_str();
+
+							listTrajet->InsertDansCatalogue(new TrajetSimple(villeDep,villeDArr,md));
+					}
+
+
+					else if(typeTrajet =='$')//cas ou on a un trajet composé
+					{
+						//on ne fait que passer
+						getline(file,villeDepstr,'\n');
+					}
+			}
+
+	}
+	if(option==3)//cas que trajet composee
+	{
+			while(true)
+			{
+					char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+					file.get(typeTrajet);
+					if(file.eof())
+							break;
+
+					string villeDepstr;
+					string villeDArrstr;
+					string mdstr;
+
+
+
+					if(typeTrajet=='/')
+					{
+						//on ne fait que passer
+						getline(file,villeDepstr,'\n');
+					}
+
+
+					else if(typeTrajet =='$')//cas ou on a un trajet composé
+					{
+							ListeChainee * listeTC =new ListeChainee();
+							char nb;
+							file.get(nb);
+							nb=nb-48;//on convertit le code hex du char qui code le nombre de trajetsimple en nombre
+							getline(file,villeDArrstr,'/');//on avance le stream au début du premier trajetsimple
+							for(int i=0;i<nb-1;i++)
+							{
+									getline(file,villeDepstr,',');
+									const char * villeDep =villeDepstr.c_str();
+
+									getline(file,villeDArrstr,',');
+									const char * villeDArr = villeDArrstr.c_str();
+
+									getline(file,mdstr,'/');
+									const char * md = mdstr.c_str();
+
+									listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+							}
+							getline(file,villeDepstr,',');
+							const char * villeDep =villeDepstr.c_str();
+
+							getline(file,villeDArrstr,',');
+							const char * villeDArr = villeDArrstr.c_str();
+
+							getline(file,mdstr,'\n');
+							const char * md = mdstr.c_str();
+
+							listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+							listTrajet->InsertDansCatalogue(new TrajetComposee(listeTC));
+					}
+			}
+
+	}
+}//---- Fin de LireListeCatalogue
+
+void Catalogue::LireCatalogueVille(ifstream & file, int option, string ville) 
+// Algorithme :
+//
+{
+		if(option==4)
+		{
+				while(true)
+				{
+						char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+						file.get(typeTrajet);
+						if(file.eof())
+								break;
+
+						string villeDepstr;
+						string villeDArrstr;
+						string mdstr;
+
+
+
+						if(typeTrajet=='/')
+						{
+
+								getline(file,villeDepstr,',');
+								if(ville!=villeDepstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								const char * villeDep =villeDepstr.c_str();
+
+								getline(file,villeDArrstr,',');
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listTrajet->InsertDansCatalogue(new TrajetSimple(villeDep,villeDArr,md));
+						}
+
+
+						else if(typeTrajet =='$')//cas ou on a un trajet composé
+						{
+								char nb;
+								file.get(nb);
+								nb=nb-48;//on convertit le code hex du char qui code le nombre de trajetsimple en nombre
+								getline(file,villeDepstr,',');
+								getline(file,villeDepstr,',');
+								if(ville!=villeDepstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								getline(file,villeDArrstr,'/');//on avance le stream au début du premier trajetsimple
+								ListeChainee * listeTC =new ListeChainee();
+								for(int i=0;i<nb-1;i++)
+								{
+										getline(file,villeDepstr,',');
+										const char * villeDep =villeDepstr.c_str();
+
+										getline(file,villeDArrstr,',');
+										const char * villeDArr = villeDArrstr.c_str();
+
+										getline(file,mdstr,'/');
+										const char * md = mdstr.c_str();
+
+										listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								}
+								getline(file,villeDepstr,',');
+								const char * villeDep =villeDepstr.c_str();
+
+								getline(file,villeDArrstr,',');
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								listTrajet->InsertDansCatalogue(new TrajetComposee(listeTC));
+						}
+				}
+		}
+		if(option==5)
+		{
+				while(true)
+				{
+						char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+						file.get(typeTrajet);
+						if(file.eof())
+								break;
+
+						string villeDepstr;
+						string villeDArrstr;
+						string mdstr;
+
+
+
+						if(typeTrajet=='/')
+						{
+
+								getline(file,villeDepstr,',');
+								getline(file,villeDArrstr,',');
+								if(ville!=villeDArrstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								const char * villeDep =villeDepstr.c_str();
+
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listTrajet->InsertDansCatalogue(new TrajetSimple(villeDep,villeDArr,md));
+						}
+
+
+						else if(typeTrajet =='$')//cas ou on a un trajet composé
+						{
+								char nb;
+								file.get(nb);
+								nb=nb-48;//on convertit le code hex du char qui code le nombre de trajetsimple en nombre
+								getline(file,villeDepstr,',');
+								getline(file,villeDepstr,',');
+								getline(file,villeDArrstr,'/');
+								if(ville!=villeDArrstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								ListeChainee * listeTC =new ListeChainee();
+								for(int i=0;i<nb-1;i++)
+								{
+										getline(file,villeDepstr,',');
+										const char * villeDep =villeDepstr.c_str();
+
+										getline(file,villeDArrstr,',');
+										const char * villeDArr = villeDArrstr.c_str();
+
+										getline(file,mdstr,'/');
+										const char * md = mdstr.c_str();
+
+										listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								}
+								getline(file,villeDepstr,',');
+								const char * villeDep =villeDepstr.c_str();
+
+								getline(file,villeDArrstr,',');
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								listTrajet->InsertDansCatalogue(new TrajetComposee(listeTC));
+						}
+				}
+
+		}
+} //----- Fin de EcrireCatalogueVille
+
+void Catalogue::LireCatalogueVilles(ifstream & file, string villeDep,string villeArr) 
+// Algorithme :
+//
+{
+				while(true)
+				{
+						char typeTrajet;//Caractère de début de ligne qui indique le type de trajet(soit / ou $)
+
+						file.get(typeTrajet);
+						if(file.eof())
+								break;
+
+						string villeDepstr;
+						string villeDArrstr;
+						string mdstr;
+
+
+
+						if(typeTrajet=='/')
+						{
+
+								getline(file,villeDepstr,',');
+								getline(file,villeDArrstr,',');
+								if(villeArr!=villeDArrstr || villeDep!=villeDepstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								const char * villeDep =villeDepstr.c_str();
+
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listTrajet->InsertDansCatalogue(new TrajetSimple(villeDep,villeDArr,md));
+						}
+
+
+						else if(typeTrajet =='$')//cas ou on a un trajet composé
+						{
+								char nb;
+								file.get(nb);
+								nb=nb-48;//on convertit le code hex du char qui code le nombre de trajetsimple en nombre
+								getline(file,villeDepstr,',');
+								getline(file,villeDepstr,',');
+								getline(file,villeDArrstr,'/');
+								if(villeArr!=villeDArrstr || villeDep!=villeDepstr)
+								{
+										//on passe à la prochaine ligne
+										getline(file,villeDepstr,'\n');
+										continue;
+								}
+								ListeChainee * listeTC =new ListeChainee();
+								for(int i=0;i<nb-1;i++)
+								{
+										getline(file,villeDepstr,',');
+										const char * villeDep =villeDepstr.c_str();
+
+										getline(file,villeDArrstr,',');
+										const char * villeDArr = villeDArrstr.c_str();
+
+										getline(file,mdstr,'/');
+										const char * md = mdstr.c_str();
+
+										listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								}
+								getline(file,villeDepstr,',');
+								const char * villeDep =villeDepstr.c_str();
+
+								getline(file,villeDArrstr,',');
+								const char * villeDArr = villeDArrstr.c_str();
+
+								getline(file,mdstr,'\n');
+								const char * md = mdstr.c_str();
+
+								listeTC->InsertDansTrajetComposee(new TrajetSimple(villeDep,villeDArr,md));
+
+								listTrajet->InsertDansCatalogue(new TrajetComposee(listeTC));
+						}
+				}
+} //----- Fin de EcrireCatalogueVilles
+
+void Catalogue::Reset()
+{
+	listTrajet->Reset();
+}
 
 
 //------------------------------------------------------------------ PRIVE

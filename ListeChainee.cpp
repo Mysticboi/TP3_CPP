@@ -374,15 +374,18 @@ void ListeChainee::EcrireListeCatalogue(ofstream & file,int option) const
         if(getTete()==nullptr)
             return;
         Chainon * elem=getTete();
-        if(!elem->HasNext()){
+        if(!elem->HasNext())
+		{
             elem->GetTrajet()->EcrireTrajet(file);
             file<<endl;
             return;
         }
-        else{
+        else
+		{
             elem->GetTrajet()->EcrireTrajet(file);
             file<<endl;
-            while(elem->HasNext()){
+            while(elem->HasNext())
+			{
                 elem=elem->GetNext();
                 elem->GetTrajet()->EcrireTrajet(file);
                 file<<endl;
@@ -549,6 +552,38 @@ void ListeChainee::EcrireListeCatalogueVilles(ofstream & file, string villeDep,s
 
 }//----- Fin de EcrireListeCatalogueVilles
 
+
+void ListeChainee::Reset()
+// Algorithme :
+//
+{
+	Chainon * elem;
+	Chainon * tmp;
+	elem = tete;
+
+	if(elem==nullptr)
+	{
+			taille=0;
+			return;
+	}
+	if(!elem->HasNext())
+	{
+		delete(elem);
+		taille=0;
+		tete=nullptr;
+		return;
+	}
+	while(elem->HasNext())
+	{
+		tmp=elem->GetNext();
+		delete(elem);
+		elem=tmp;
+	}
+	delete(elem);
+	taille=0;
+	tete=nullptr;
+	return;
+}//____ Fin de Reset
 
 
 

@@ -119,7 +119,25 @@ public:
     //
     // Contrat : 
 
+    void LireCatalogue(ifstream & file, int option);
+    // Mode d'emploi :
+    //
+    // Contrat : 
 
+    void LireCatalogueVille(ifstream & file, int option, string ville);
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+    void LireCatalogueVilles(ifstream & file, string villeDep,string villeArr);
+    // Mode d'emploi :
+    //
+    // Contrat : 
+
+    void Reset(); 
+    // Mode d'emploi : reinitialise le catalogue
+    //
+    // Contrat : 
 
 	
 

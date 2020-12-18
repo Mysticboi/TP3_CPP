@@ -44,7 +44,8 @@ void TrajetComposee::EcrireTrajet(ofstream & file) const
     listeTrajet->EcrireListeTC(file);
 } //----- Fin de EcrireTrajet
 
-bool TrajetComposee::IsTrajetComposee() const{
+bool TrajetComposee::IsTrajetComposee() const
+{
     return true;
 }
 

@@ -152,6 +152,11 @@ public:
     // Contrat :
     //
 
+    void Reset();
+    // Mode d'emploi : Reinitialise la listechainee 
+    //
+    // Contrat :
+    //
 //------------------------------------------------------------------ PRIVE
 
 protected:
