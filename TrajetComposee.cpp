@@ -45,9 +45,11 @@ void TrajetComposee::EcrireTrajet(ofstream & file) const
 } //----- Fin de EcrireTrajet
 
 bool TrajetComposee::IsTrajetComposee() const
+// Algorithme :
+//
 {
     return true;
-}
+} //----- Fin de IsTrajetComposee
 
 //------------------------------------------------- Surcharge d'opérateurs
 TrajetComposee & TrajetComposee::operator = ( const TrajetComposee & unTrajetComposee )

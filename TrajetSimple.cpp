@@ -100,9 +100,11 @@ void TrajetSimple::EcrireTrajet(ofstream & file) const
 } //----- Fin de EcrireTrajet
 
 bool TrajetSimple::IsTrajetComposee() const
+// Algorithme :
+//
 {
     return false;
-}
+} //----- Fin de IsTrajetComposee
 
 
 //------------------------------------------------------------------ PRIVE

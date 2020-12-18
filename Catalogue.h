@@ -106,32 +106,32 @@ public:
 
     void EcrireCatalogue(ofstream & file, int option) const;
     // Mode d'emploi :
-    //
+    // Ecriture du catalogue dans un fichier
     // Contrat : 
 
     void EcrireCatalogueVille(ofstream & file, int option, string ville) const;
     // Mode d'emploi :
-    //
+    // Ecriture du catalogue dans un ficheir à partir d'une ville
     // Contrat : 
 
     void EcrireCatalogueVilles(ofstream & file, string villeDep,string villeArr) const;
     // Mode d'emploi :
-    //
+    // Ecriture du catalogue dans un fichier à partir de 2 villes
     // Contrat : 
 
     void LireCatalogue(ifstream & file, int option);
     // Mode d'emploi :
-    //
+    // Lecure d'un fichier
     // Contrat : 
 
     void LireCatalogueVille(ifstream & file, int option, string ville);
     // Mode d'emploi :
-    //
+    // Lecure d'un fichier à partir d'une ville
     // Contrat : 
 
     void LireCatalogueVilles(ifstream & file, string villeDep,string villeArr);
     // Mode d'emploi :
-    //
+    // Lecture d'un fichier à partir de 2 villes
     // Contrat : 
 
     void Reset(); 

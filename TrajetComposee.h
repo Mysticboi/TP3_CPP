@@ -57,8 +57,6 @@ public:
     //
 
     TrajetComposee (ListeChainee * uneListe);
-	// @arg1 : Pointeur vers un tableau de Trajet Simple 
-	// @arg2 : Taille de ce tableau
     // Mode d'emploi :
     //Creer un objet Trajet composé à partir d'une liste de trajets simples 
     // Contrat :
@@ -77,6 +75,10 @@ public:
     //
 
     bool IsTrajetComposee() const;
+    // Mode d'emploi : Check si le trajet s'agit d'un trajetcomposée
+    // 
+    // Contrat :
+    //
 
 //------------------------------------------------------------------ PRIVE
 

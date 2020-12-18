@@ -81,8 +81,8 @@ public:
     //
 
     bool IsTrajetComposee() const;
-    // Mode d'emploi :
-    //
+    // Mode d'emploi : Check si le trajet s'agit d'un trajetcomposée
+    // 
     // Contrat :
     //
 //------------------------------------------------------------------ PRIVE

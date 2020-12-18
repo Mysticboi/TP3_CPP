@@ -141,13 +141,13 @@ public:
     //
 
     void EcrireListeCatalogueVille(ofstream & file, int option, string ville) const;
-    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas Ville dep ou arrivée
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas Ville de départ ou d'arrivée
     //
     // Contrat :
     //
 
     void EcrireListeCatalogueVilles(ofstream & file, string villeDep,string villeArr) const;
-    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas villeDep et villeArr
+    // Mode d'emploi : Ecriture d'une liste dans un fichier pour catalogue cas ville de départ et d'arrivée
     //
     // Contrat :
     //

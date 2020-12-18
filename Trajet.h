@@ -115,6 +115,10 @@ public:
     //
 
     virtual bool IsTrajetComposee() const;
+    // Mode d'emploi : Check si le trajet s'agit d'un trajetcomposée
+    // 
+    // Contrat :
+    //
 
 
 
