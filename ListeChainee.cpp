@@ -257,7 +257,7 @@ void ListeChainee::InsertDansCatalogue(Trajet * unTrajet)
     }
     if(taille==1){ // Cas 1seul élement dans la liste
         Chainon * nouveau=new Chainon(unTrajet);
-        if(strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())>0){
+        if(strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())>0 or (strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())==0 and strcmp(unTrajet->GetVilleA(),tete->GetTrajet()->GetVilleA())>0)){
             tete->SetNext(nouveau);
         }
         else{
@@ -268,7 +268,7 @@ void ListeChainee::InsertDansCatalogue(Trajet * unTrajet)
         return;
     } // Cas plusieurs élements
     Chainon * nouveau=new Chainon(unTrajet);
-    if(strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())<=0){ // Cas Ajout en tête
+    if(strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())<0 or (strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())==0 and strcmp(unTrajet->GetVilleA(),tete->GetTrajet()->GetVilleA())<0)){ // Cas Ajout en tête
         nouveau->SetNext(tete);
         tete=nouveau;
         taille++;
@@ -276,11 +276,11 @@ void ListeChainee::InsertDansCatalogue(Trajet * unTrajet)
     }
     Chainon * elem=tete->GetNext();
     Chainon * prev=tete;
-    while(elem->HasNext() && strcmp(unTrajet->GetVilleD(),elem->GetTrajet()->GetVilleD())>0 ){
+    while(elem->HasNext() && (strcmp(unTrajet->GetVilleD(),elem->GetTrajet()->GetVilleD())>0 or (strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())==0 and strcmp(unTrajet->GetVilleA(),tete->GetTrajet()->GetVilleA())>0)   ) ){
         prev=elem;
         elem=elem->GetNext();
     }
-    if(!(elem->HasNext()) && strcmp(unTrajet->GetVilleD(),elem->GetTrajet()->GetVilleD())>0 ){ // Ajout fin
+    if(!(elem->HasNext()) && (strcmp(unTrajet->GetVilleD(),elem->GetTrajet()->GetVilleD())>0 or (strcmp(unTrajet->GetVilleD(),tete->GetTrajet()->GetVilleD())==0 and strcmp(unTrajet->GetVilleA(),tete->GetTrajet()->GetVilleA())>0)  ) ){ // Ajout fin
         elem->SetNext(nouveau);
         taille++;
         return;
